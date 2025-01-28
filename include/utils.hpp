@@ -24,6 +24,8 @@ constexpr bool is_valid_path(const char* path, const char* prefix) {
   }
   return true;
 }
+
+int module_loaded(const char* module_name);
 }  // namespace asus_numpad::utils
 
 #endif  //ASUS_NUMPAD_UTILS_HPP

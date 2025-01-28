@@ -5,6 +5,10 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(${PROJECT_NAME} main.cpp)
 
 
+target_sources(${PROJECT_NAME} PRIVATE
+        src/utils.cpp
+)
+
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic -Werror)
 
@@ -32,4 +36,9 @@ if (${PROJECT_NAME}_DEFINED_INCLUDES)
     target_compile_definitions(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_DEFINED_INCLUDES})
 else ()
     target_compile_definitions(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_POSSIBLE_INCLUDE_DEFINES})
+endif ()
+
+if (CMAKE_BUILD_TYPE MATCHES "Debug")
+    target_compile_options(${PROJECT_NAME} PRIVATE -fsanitize=address)
+    target_link_options(${PROJECT_NAME} PRIVATE -fsanitize=address)
 endif ()
