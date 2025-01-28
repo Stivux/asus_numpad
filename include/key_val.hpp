@@ -4,21 +4,21 @@
 #include <cstddef>
 
 namespace asus_numpad::utils::key_val {
-template <typename T>
-struct Pair {
-  std::string_view key;
-  T value;
+template <typename KeyType, typename ValueType>
+struct KeyValPair {
+  KeyType key;
+  ValueType value;
 };
 
-template <typename T, std::size_t N>
+template <std::equality_comparable KeyType, typename ValueType, std::size_t N>
 class KeyValStore {
  public:
   KeyValStore() = delete;
 
-  constexpr explicit KeyValStore(const std::array<Pair<T>, N>& data)
+  constexpr explicit KeyValStore(const std::array<KeyValPair<KeyType, ValueType>, N>& data)
       : data_{data} {}
 
-  constexpr const T& operator[](const std::string& key) const {
+  constexpr const ValueType& operator[](const KeyType& key) const {
     for (const auto& pair : data_) {
       if (pair.key == key) {
         return pair.value;
@@ -28,7 +28,7 @@ class KeyValStore {
   }
 
  private:
-  const std::array<Pair<T>, N> data_;
+  const std::array<KeyValPair<KeyType, ValueType>, N> data_;
 };
 }  // namespace asus_numpad::utils::key_val
 

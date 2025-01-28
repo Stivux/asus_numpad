@@ -37,7 +37,7 @@ int start_numpad() {
   return return_value;
 }
 
-using FuncPair = asus_numpad::utils::key_val::Pair<int (*)()>;
+using FuncPair = asus_numpad::utils::key_val::KeyValPair<std::string_view, int (*)()>;
 
 static constexpr auto start_funcs =
     asus_numpad::utils::key_val::KeyValStore(std::array{
